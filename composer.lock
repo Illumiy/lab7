@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bizley/migration",
-            "version": "3.6.0",
+            "version": "3.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bizley/yii2-migration.git",
-                "reference": "49ab8cd79636ce2bfa4d07be0da6452d5e86b81d"
+                "reference": "0a4c125f90ff8417c04f5cbddd42aad8c52c537e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bizley/yii2-migration/zipball/49ab8cd79636ce2bfa4d07be0da6452d5e86b81d",
-                "reference": "49ab8cd79636ce2bfa4d07be0da6452d5e86b81d",
+                "url": "https://api.github.com/repos/bizley/yii2-migration/zipball/0a4c125f90ff8417c04f5cbddd42aad8c52c537e",
+                "reference": "0a4c125f90ff8417c04f5cbddd42aad8c52c537e",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "migration",
                 "yii2"
             ],
-            "time": "2019-10-08T18:07:50+00:00"
+            "time": "2019-10-10T19:30:44+00:00"
         },
         {
             "name": "bower-asset/bootstrap",

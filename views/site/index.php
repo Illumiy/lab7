@@ -9,7 +9,7 @@ $this->title = 'My Yii Application';
     <?php foreach($model as $test){
         //echo '<p >'.$test['name'].'</p>';
         echo Html::beginTag('p');
-        echo Html::beginTag('a', ['href' => Url::toRoute('site/testpage/?id='.$test['id'])]);
+        echo Html::beginTag('a', ['href' => Url::toRoute('site/testpage/?test='.$test['id'].'&Question=0')]);
         echo $test['name'];
         echo Html::endTag('a');
         echo Html::endTag('p');

@@ -113,3 +113,48 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+
+
+.test{
+    width: 800px;
+}
+
+.question{
+    width: 800px;
+    background-color: white;
+    border: 2px solid black;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.TestUnClick{
+    width: 800px;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+
+.TestUnClick:hover{
+    background-color: lightgray;
+}
+
+.TestRight{
+    width: 400px;
+    height: 50px;
+    margin-bottom: 5px;
+    background-color: lightgreen;
+    border: 2px solid black;
+}
+
+.TestWrong{
+    width: 400px;
+    height: 50px;
+    margin-bottom: 5px;
+    background-color: lightpink;
+    border: 2px solid black;
+}
