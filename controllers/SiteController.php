@@ -7,6 +7,7 @@ use yii\web\Controller;
 use app\models\Test;
 use app\models\Questions;
 use app\models\Answers;
+
 class SiteController extends Controller
 {
     /**
@@ -16,34 +17,40 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $model=Test::find()->asArray()->all();
-        return $this->render('index', [ 'model' => $model]);
+        $model = Test::find()->asArray()->all();
+        return $this->render('index', ['model' => $model]);
     }
-    public function actionTestpage(){
 
+    /**
+     * @return bool|string
+     */
+    public function actionTestpage()
+    {
         $questions = Questions::find()->where(['id_test' => $_GET['test']])->asArray()->all();
         $answers = array();
-        foreach ($questions as $question){
+        foreach ($questions as $question) {
             $a = Answers::find()->where(['id_quest' => $question['id']])->asArray()->all();
-            $answers[]=$a;
+            $answers[] = $a;
         }
-        if (YII::$app->request->isAjax){
-               echo '<pre>';
-        print_r($questions[$_POST['answer']]);
-        echo '</pre>';
-        die;
-            if ($_POST['ans'] == $questions[$_POST['que']]){
+        if (YII::$app->request->isAjax) {
+            $ans = Answers::find()->where(['id' => $_POST['ans'],])->asArray()->one();
+//        echo '<pre>';
+//        print_r($ans);
+//        echo '</pre>';
+//        die;
+            if ($ans['check_true']==1) {
                 \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 $c = true;
-                return $c;
-            }else{
+                return [$c,$_POST['ans']];
+            } else {
                 \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 $c = false;
-                return $c;
+                return [$c,$_POST['ans']];
             }
-            };
+        };
 
         return $this->render('testpage', ['questions' => $questions, 'answers' => $answers]);
+
     }
 
 }

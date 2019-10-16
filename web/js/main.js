@@ -1,24 +1,34 @@
-function CheckIfRight($a,$b,$c) {
+function CheckIfRight(a,b) {
     $.ajax({
-        url: 'http://lab7:8080/web/site/testpage/?test='+$c+'&Question='.$b,
-        data:{ans: $a, que: $b,test:$c},
+        url: 'http://lab7/web/site/testpage',
+        data:{ans: a, que: b},
         type: 'POST',
         success: function(data){
-                    if (data==true){
-                        alert(data);
-                    }else{
-                        // console.log(ans);
-                        // console.log(que);
-                        console.log(data);
-                        // alert("YOU PICK A WRONG HOUSE FOOL! *You were hit by a bat*")
-                    };
-            // if ($a == $c[$b]['answer']){
-            // }else {
-            //     alert(">OwO<")
-            // }
+            if (data[0]==true){
+                // alert(data[0]);
+                // console.log(data);
+                // console.log(data[1]);
+                document.getElementById("Test"+data[1]).className = "TestRight";
+                document.getElementById("Test"+data[1]).removeAttribute("onclick");
+                var OtherElements = document.getElementsByClassName("TestUnClick");
+                for (let i=0; i<OtherElements.length; i++) {
+                    OtherElements[i].removeAttribute("onclick");
+                }
+            }else{
+                // alert(data[0]);
+                // console.log(data);
+                // console.log(data[1]);
+                document.getElementById("Test"+data[1]).className = "TestWrong";
+                document.getElementById("Test"+data[1]).removeAttribute("onclick");
+                var OtherElements = document.getElementsByClassName("TestUnClick");
+                for (let i=0; i<OtherElements.length; i++) {
+                    OtherElements[i].removeAttribute("onclick");
+                }
+            }
         },
-        error: function no (){
-            alert("SOMETHING WENT WRONG!!!")
+        error: function no (data){
+            console.log(data);
+            alert("SOMETHING WENT WRONG!!!");
         }
     });
 }
