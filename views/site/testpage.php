@@ -11,29 +11,35 @@ use kartik\select2\Select2;
     if ($questions == null) {
         echo 'Тест пустой!';
     }elseif ($_GET['Question'] <= (count($questions)-1)){
-
-        echo '<div class="test"><div id="question" class="question">' .$questions[$_GET['Question']]['quest']. '</div>';
+        $quest=$questions[$_GET['Question']];
+        echo '<div class="test"><div id="question" class="question">' .$quest['quest']. '</div>';
         $a = $answers[$_GET['Question']];
-        $form = ActiveForm::begin();
-//         echo '<pre>';
-//         print_r($_GET['Question']);
-//         echo '</pre>';
-//         die;
-//        echo $form->field($answers[$_GET['Question']], 'state_1')->widget(Select2::classname(), [
-//            'data' => $data,
-//            'options' => ['placeholder' => 'Select a state ...'],
-//            'pluginOptions' => [
-//                'allowClear' => true
-//            ],
-//        ]);
-        foreach ($a as $answer) {
-            echo '<div id="Test' . $answer['id'] . '" onclick="CheckIfRight('.$answer['id'].','.$_GET['Question'].')" class="TestUnClick">' . $answer['answer'] . '</div>';
+        // echo '<pre>';
+        // print_r($questions);
+        // echo '</pre>';
+        if($useranswers[$quest['id']]['id_quest']==$quest['id']){ // Проверка на существование ответа от этого пользователя
+            foreach ($a as $answer) {
+                if($useranswers[$quest['id']]['id_answer']==$answer['id']){
+                    if($answer['check_true']==1){
+                        echo '<div class="TestRight">' . $answer['answer'] . '</div>';
+                    }else{
+                        echo '<div class="TestWrong">' . $answer['answer'] . '</div>';
+                    }
+                }else{
+                    echo '<div class="TestUnClick">' . $answer['answer'] . '</div>';
+                }
+            }
+        }else{
+            foreach ($a as $answer) {
+                echo '<div id="Test' . $answer['id'] . '" onclick="CheckIfRight('.$answer['id'].','.$_GET['Question'].','.$quest['id'].')" class="TestUnClick">' . $answer['answer'] . '</div>';
+            }
         }
-        echo '<br><a href="index">Go back</a></div>';
         if (($_GET['Question']) < (count($questions)-1)) {
-            echo '<a href="' . Url::to(['site/testpage', 'test' => $_GET['test'], 'Question' => $_GET['Question'] + 1]) . '">Next</a>';
+            echo '<a href="' . Url::to(['site/testpage', 'test' => $_GET['test'], 'Question' => $_GET['Question'] + 1]) . '" class="kek">Следующий вопрос</a>';
+        }else{
+            echo '<a href="' . Url::to(['site/testend', 'test' => $_GET['test']]). '" class="kek">Завершить тест</a>';
         }
-        ActiveForm::end();
+        echo '<br><a href="index">Вернуться к выбору теста</a></div>';
     }else{
         echo'Такого вопроса нет!';
     }?>

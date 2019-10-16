@@ -1,12 +1,12 @@
-function CheckIfRight(a,b) {
+function CheckIfRight(a,b,id) {
     $.ajax({
-        url: 'http://lab7/web/site/testpage',
-        data:{ans: a, que: b},
+        url: 'http://lab7killme:8080/web/site/testpage',
+        data:{ans: a, que: b,id: id},
         type: 'POST',
         success: function(data){
             if (data[0]==true){
                 // alert(data[0]);
-                // console.log(data);
+                 console.log(data);
                 // console.log(data[1]);
                 document.getElementById("Test"+data[1]).className = "TestRight";
                 document.getElementById("Test"+data[1]).removeAttribute("onclick");
@@ -25,6 +25,25 @@ function CheckIfRight(a,b) {
                     OtherElements[i].removeAttribute("onclick");
                 }
             }
+        },
+        error: function no (data){
+            console.log(data);
+            alert("SOMETHING WENT WRONG!!!");
+        }
+    });
+}
+
+function Sos(id) {
+    $.ajax({
+        url: 'http://lab7killme:8080/web/site/chooseuser',
+        data:{id: id},
+        type: 'POST',
+        success: function(data){
+            if (data==false){
+                alert('Пользователь не сменён');
+            }
+                alert('Пользователь сменён');
+                console.log(data);
         },
         error: function no (data){
             console.log(data);
