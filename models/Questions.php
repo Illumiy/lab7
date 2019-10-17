@@ -44,7 +44,7 @@ class Questions extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Выбирете существующий вопрос',
             'quest' => 'Quest',
             'id_test' => 'Id Test',
         ];

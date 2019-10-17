@@ -31,30 +31,31 @@ class SiteController extends Controller
                 $session= Yii::$app->session;
                 $session->open();
                 $_SESSION['user']=$_POST['id'];
-            return $_POST['id'];
+                return $_POST['id'];
             }else{
                 return false;
             }
         }
         return $this->render('user', ['users' => $users]);
     }
-    public function actionTestend(){// Оценка теста
-        if(empty($_SESSION['user'])){
+    public function actionTestend()
+    {// Оценка теста
+        if (empty($_SESSION['user'])) {
             return Yii::$app->response->redirect(['/site/chooseuser']);
-         }
-        $i=0;
-        $q=array();
-        $answersU=UserAnswers::find()->where(['id_user'=>$_SESSION['user']])->asArray()->all(); 
-         foreach($answersU as $answer){
-            $que= Questions::find()->where(['id' => $answer['id_quest']])->asArray()->one();
-            if($que['id_test']==$_GET['test']){
-                $ans= Answers::find()->where(['id' => $answer['id_answer']])->asArray()->one();
-                if($ans['check_true']==1){
+        }
+        $i = 0;
+        $q = array();
+        $answersU = UserAnswers::find()->where(['id_user' => $_SESSION['user']])->asArray()->all();
+        foreach ($answersU as $answer) {
+            $que = Questions::find()->where(['id' => $answer['id_quest']])->asArray()->one();
+            if ($que['id_test'] == $_GET['test']) {
+                $ans = Answers::find()->where(['id' => $answer['id_answer']])->asArray()->one();
+                if ($ans['check_true'] == 1) {
                     $i++;
                 }
             }
         }
-        
+
         return $this->render('testend', ['i' => $i]);
     }
 

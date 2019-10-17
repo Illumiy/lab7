@@ -4,7 +4,9 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Questions;
+use app\models\Test;
 use app\models\QuestionsSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,12 +37,44 @@ class QuestionsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new QuestionsSearch();
+        $searchModel = new Questions;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionTest()
+    {
+        $model = new Test();
+        $data=$model->find()->asArray()->all();
+        if(Yii::$app->request->post()){
+            $session= Yii::$app->session;
+            $session->open();
+            $_SESSION['test']=$_POST['Test']['id'];
+            return Yii::$app->response->redirect(['/questions/quest']);
+        }
+        return $this->render('test', [
+            'model' => $model,
+            'data' => ArrayHelper::map($data,'id','name')
+        ]);
+    }
+    public function actionQuest()
+    {
+        if (empty($_SESSION['test'])) {
+            return Yii::$app->response->redirect(['/questions/test']);
+        }
+        $model = new Questions();
+        $data=$model->find()->asArray()->all();
+        if(Yii::$app->request->post()){
+            $model->quest=$_POST['Questions']['quest'];
+            $model->id_test=$_SESSION['test'];
+            $model->save();
+        }
+        return $this->render('quest', [
+            'model' => $model,
+            'data' => ArrayHelper::map($data,'id','quest')
         ]);
     }
 
