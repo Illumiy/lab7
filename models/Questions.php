@@ -31,7 +31,7 @@ class Questions extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['quest', 'id_test'], 'required'],
+            [['id_test'], 'required'],
             [['id_test'], 'integer'],
             [['quest'], 'string', 'max' => 255],
             [['id_test'], 'exist', 'skipOnError' => true, 'targetClass' => Test::className(), 'targetAttribute' => ['id_test' => 'id']],

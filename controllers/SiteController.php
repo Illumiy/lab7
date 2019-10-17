@@ -16,13 +16,16 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex()//Страница выбора теста
     {
         if(empty($_SESSION['user'])){
            return Yii::$app->response->redirect(['/site/chooseuser']);
         }
         $model = Test::find()->asArray()->all();
         return $this->render('index', ['model' => $model]);
+    }
+    public function actionCrudix(){
+        return $this->render('crudix');
     }
     public function actionChooseuser(){//Страница выбора пользователя
         $users=User::find()->all();
@@ -46,7 +49,7 @@ class SiteController extends Controller
         $i = 0;
         $q = array();
         $answersU = UserAnswers::find()->where(['id_user' => $_SESSION['user']])->asArray()->all();
-        foreach ($answersU as $answer) {
+        foreach ($answersU as $answer) {        //Сётчик правильных ответов пользователя к этому тесту
             $que = Questions::find()->where(['id' => $answer['id_quest']])->asArray()->one();
             if ($que['id_test'] == $_GET['test']) {
                 $ans = Answers::find()->where(['id' => $answer['id_answer']])->asArray()->one();
@@ -71,10 +74,6 @@ class SiteController extends Controller
         $answers = array();
         $session= Yii::$app->session;
         $session->open();
-        // echo '<pre>';
-        // print_r($session['quest_id']);
-        // echo '</pre>';
-        // die;
         $useranswers=UserAnswers::find()->where(['id_user'=> $session['user']])->indexBy('id_quest')->asArray()->all();
         foreach ($questions as $question) {
             $a = Answers::find()->where(['id_quest' => $question['id']])->asArray()->all();
@@ -88,10 +87,9 @@ class SiteController extends Controller
             $answer->save();
             $ans = Answers::find()->where(['id' => $_POST['ans']])->asArray()->one();
            
-            if ($ans['check_true']==1) {
+            if ($ans['check_true']==1) {//Отправка аяксу правильности ответа
                 \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 $c = true;
-                $session['result']=$session['result']+1;
                 return [$c,$_POST['ans'],$session['user']];
             } else {
                 \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

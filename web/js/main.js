@@ -1,6 +1,6 @@
 function CheckIfRight(a,b,id) {
     $.ajax({
-        url: 'http://lab7/web/site/testpage',
+        url: 'http://lab7:8080/web/site/testpage',
         data:{ans: a, que: b,id: id},
         type: 'POST',
         success: function(data){
@@ -35,7 +35,7 @@ function CheckIfRight(a,b,id) {
 
 function Sos(id) {
     $.ajax({
-        url: 'http://lab7/web/site/chooseuser',
+        url: 'http://lab7:8080/web/site/chooseuser',
         data:{id: id},
         type: 'POST',
         success: function(data){

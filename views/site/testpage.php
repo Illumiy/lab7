@@ -14,9 +14,6 @@ use kartik\select2\Select2;
         $quest=$questions[$_GET['Question']];
         echo '<div class="test"><div id="question" class="question">' .$quest['quest']. '</div>';
         $a = $answers[$_GET['Question']];
-        // echo '<pre>';
-        // print_r($questions);
-        // echo '</pre>';
         if($useranswers[$quest['id']]['id_quest']==$quest['id']){ // Проверка на существование ответа от этого пользователя
             foreach ($a as $answer) {
                 if($useranswers[$quest['id']]['id_answer']==$answer['id']){
@@ -39,7 +36,10 @@ use kartik\select2\Select2;
         }else{
             echo '<a href="' . Url::to(['site/testend', 'test' => $_GET['test']]). '" class="kek">Завершить тест</a>';
         }
-        echo '<br><a href="index">Вернуться к выбору теста</a></div>';
+        if(($_GET['Question']) > 0){
+            echo '<p><a href="' . Url::to(['site/testpage', 'test' => $_GET['test'], 'Question' => $_GET['Question'] - 1]) . '" class="kek">На предыдущий вопрос</a></p>';
+        }
+        echo '<p><a href="index">Вернуться к выбору теста</a></div></p>';
     }else{
         echo'Такого вопроса нет!';
     }?>

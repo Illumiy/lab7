@@ -39,6 +39,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Выбор теста', 'url' => ['/site/index']],
+            ['label' => 'Круды', 'url' => ['/site/crudix']],
             ['label' => 'Создание вопроса', 'url' => ['questions/test']],
             ['label' => 'Выбор пользователя', 'url' => ['/site/chooseuser']],
             Yii::$app->user->isGuest ? (

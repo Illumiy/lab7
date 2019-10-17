@@ -47,7 +47,7 @@ class Answers extends \yii\db\ActiveRecord
             'id' => 'ID',
             'answer' => 'Answer',
             'id_quest' => 'Id Quest',
-            'check_true' => 'Check True',
+            'check_true' => 'Правильность ответа',
         ];
     }
 
