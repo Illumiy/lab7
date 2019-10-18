@@ -72,8 +72,6 @@ class QuestionsController extends Controller
         $data=$model->find()->where(['id_test'=>$_SESSION['test']])->asArray()->all();
         if(Yii::$app->request->post()){ //Приём данных с формы
             if(!empty($_POST['Questions']['quest'])){//Приём на создание нового вопроса
-                print_r($model->id);
-                die;
                 $model->quest=$_POST['Questions']['quest'];
                 $model->id_test=$_SESSION['test'];
                 $model->save();
